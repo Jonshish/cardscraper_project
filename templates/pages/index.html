@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .content-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        min-width: 400px;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .content-table thead tr {
+        background-color: #007bff;
+        text-align: left;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .content-table th,
+    .content-table td{
+        padding: 12px 15px;
+    }
+
+    .content-table tbody tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .content-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .content-table tbody tr:last-of-type {
+        border-bottom: 2px solid #007bff;
+    }
+
+    .content-table tbody tr.active-row {
+        font-weight: bold;
+        color: #007bff;
+    }
+</style>
+
+<!-- CARD -->
+<section id="cards">
+    <div class="media mb-4">
+        <img class="mr-3 align-self-center" src="{% static 'img/test.jpg' %}" class="img-fluid">
+        <div class="media-body ml-5">
+            <h3 class="block m-5">Player Name</h3>
+            <h4 class="block m-5">Sold Price</h4>
+            <h4 class="block m-5">Bids</h4>
+            <h4 class="block m-5">Sold Date</h4>
+            <h4 class="block m-5">Card Link</h4>
+        </div>
+    </div>
+                    
+            <main>
+                <div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area mr-1"></i>
+                                    Trending Area Chart (30 Days)
+                                </div>
+                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-bar mr-1"></i>
+                                    Month Over Month Performance
+                                </div>
+                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            DataTable
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="content-table" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Sold Price</th>
+                                            <th>Bids</th>
+                                            <th>Sold Date</th>
+                                            <th>Card Link</th>
+                                            <th>Image Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if datas %}
+                                            {% for data in datas %}
+                                                <tr>
+                                                    <td>{{ data.title }}</td>
+                                                    <td>${{ data.sold_price }}</td>
+                                                    <td>{{ data.bids }}</td>
+                                                    <td>{{ data.sold_date }}</td>
+                                                    <td>{{ data.card_link }}</td>
+                                                    <td>{{ data.image_link }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div class="col-md-12">
+                                                <p>No Data Available</p>
+                                            </div>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+{% endblock %}
